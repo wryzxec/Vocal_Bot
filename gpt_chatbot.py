@@ -16,9 +16,23 @@ def chat_bot_query(input):
     output = completion.choices[0].message.content
     return output
 
-user_input = input("User: ")
-chat_bot_output = chat_bot_query(user_input)
-print("Chatbot: " + str(chat_bot_output))
+def run_chat_bot():
+    print("IMPORTANT: To exit the program type 'EXIT'.")
+    print("Hello! I am Voice Bot! How can I help you today?")
+    user_input = input("User: ")
+    while(user_input != "EXIT"):
+        chat_bot_output = chat_bot_query(user_input)
+        print("Voice Bot: " + str(chat_bot_output))
 
-tts_handling.create_text_to_speech_file(chat_bot_output, client, "speech.mp3")
-tts_handling.play_text_to_speech_file("speech.mp3")
+        tts_handling.create_text_to_speech_file(chat_bot_output, client, "speech.mp3")
+        tts_handling.play_text_to_speech_file("speech.mp3")
+        user_input = input("User: ")
+
+    print("Program Finished.")
+
+
+# main
+run_chat_bot()
+
+
+
