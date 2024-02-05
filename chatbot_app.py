@@ -29,7 +29,7 @@ class MyApp:
                          y=(5 / 6) * self.root.winfo_screenheight())
 
     def create_chatbot_icon(self):
-        image_file_name = "chatbot_icon_final.png"
+        image_file_name = "images/chatbot_icon.png"
         image_path = Path(__file__).parent / image_file_name
         IMAGE_WIDTH = 300
         IMAGE_HEIGHT = 300
