@@ -18,13 +18,13 @@ def chat_bot_query(input):
 
 def run_chat_bot():
     print("IMPORTANT: To exit the program type 'EXIT'.")
-    print("Hello! I am Voice Bot! How can I help you today?")
+    print("Hello! I am Vocal Bot! How can I help you today?")
     user_input = input("User: ")
     while(user_input != "EXIT"):
         chat_bot_output = chat_bot_query(user_input)
         
         tts_handling.create_text_to_speech_file(chat_bot_output, client, "speech.mp3")
-        print("Voice Bot: " + str(chat_bot_output))
+        print("Vocal Bot: " + str(chat_bot_output))
         tts_handling.play_text_to_speech_file("speech.mp3")
 
         user_input = input("User: ")
