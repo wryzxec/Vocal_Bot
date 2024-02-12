@@ -7,7 +7,7 @@ client = OpenAI()
  
 # Uses the OpenAI GPT-3.5-turbo model 
 
-def chat_bot_query(input):
+def chatbot_query(input):
     completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
@@ -16,24 +16,13 @@ def chat_bot_query(input):
     output = completion.choices[0].message.content
     return output
 
-def run_chat_bot():
-    print("IMPORTANT: To exit the program type 'EXIT'.")
-    print("Hello! I am Vocal Bot! How can I help you today?")
-    user_input = input("User: ")
-    while(user_input != "EXIT"):
-        chat_bot_output = chat_bot_query(user_input)
+def run_chatbot(user_input):
+    chat_bot_output = chatbot_query(user_input)
         
-        tts_handling.create_text_to_speech_file(chat_bot_output, client, "speech.mp3")
-        print("Vocal Bot: " + str(chat_bot_output))
-        tts_handling.play_text_to_speech_file("speech.mp3")
-
-        user_input = input("User: ")
-
-    print("Program Finished.")
+    tts_handling.create_text_to_speech_file(chat_bot_output, client, "speech.mp3")
+    print("Vocal Bot: " + str(chat_bot_output))
+    tts_handling.play_text_to_speech_file("speech.mp3")
 
 
-# main
-run_chat_bot()
-
-
-
+if __name__ == "__main__":
+    run_chatbot("Hello")

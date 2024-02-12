@@ -1,4 +1,7 @@
 import tkinter as tk
+import chatbot_engine as chatbot
+import tts_handling as tts
+
 from PIL import Image, ImageTk
 from pathlib import Path
 
@@ -33,12 +36,10 @@ class MyApp:
         return text_entry
     
     def process_input(self, event):
-        global stored_input
         input_text = self.text_entry.get()
-        stored_input = input_text
         self.text_entry.delete(0, tk.END)
 
-        print(stored_input)
+        chatbot.run_chatbot(input_text)
 
     def create_chatbot_icon(self):
         image_file_name = "images/chatbot_icon.png"
