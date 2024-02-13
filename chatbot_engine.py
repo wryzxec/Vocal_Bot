@@ -3,6 +3,10 @@ from openai import OpenAI
 
 import tts_handling
 
+class chatbot_engine:
+    def __init__(self):
+        self.client = OpenAI()
+
 client = OpenAI()
  
 # Uses the OpenAI GPT-3.5-turbo model 
@@ -16,13 +20,17 @@ def chatbot_query(input):
     output = completion.choices[0].message.content
     return output
 
-def run_chatbot(user_input):
-    chat_bot_output = chatbot_query(user_input)
-        
-    tts_handling.create_text_to_speech_file(chat_bot_output, client, "speech.mp3")
-    print("Vocal Bot: " + str(chat_bot_output))
-    tts_handling.play_text_to_speech_file("speech.mp3")
+def get_chatbot_response(user_input):
+    chatbot_response = chatbot_query(user_input)
+    return chatbot_response
 
+def generate_chatbot_response_audio(chatbot_response):
+    tts_handling.create_text_to_speech_file(chatbot_response, client, "chatbot_response.mp3")
+    tts_handling.load_text_to_speech_file("chatbot_response.mp3")
+
+def play_chatbot_response_audio():
+    tts_handling.play_text_to_speech_file("chatbot_response.mp3") 
 
 if __name__ == "__main__":
-    run_chatbot("Hello")
+    test_response = get_chatbot_response("Hello")
+    print(test_response)

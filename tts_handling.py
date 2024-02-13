@@ -14,12 +14,13 @@ def create_text_to_speech_file(chat_bot_output, client, file_name):
     with open(speech_file_path, "wb") as file:
         file.write(response.content)
 
-def play_text_to_speech_file(file_name):
-    
+def load_text_to_speech_file(file_name):
     pygame.init()
     audio_file_path = Path(__file__).parent / file_name
-
     pygame.mixer.music.load(str(audio_file_path))
+
+def play_text_to_speech_file(file_name):
+    
     pygame.mixer.music.play()
 
     while pygame.mixer.music.get_busy():
