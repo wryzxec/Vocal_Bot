@@ -40,4 +40,13 @@ To run the project, ensure all files in the repository are locally downloaded an
 
 Currently, the program is using OpenAI's GPT-3.5-Turbo model. To use OpenAI's GPT-4.0 Model do the following:
 
-- In the `chatbot_query` function in **chatbot_engine.py** change `model="gpt-3.5-turbo"` to `model="gpt-4"`
+- In the `chatbot_query` function in **chatbot_engine.py** change
+  
+  ```python
+  model="gpt-3.5-turbo"
+  ```
+  
+  to the following:
+  ```python
+  model="gpt-4"
+  ```
