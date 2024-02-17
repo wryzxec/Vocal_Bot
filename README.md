@@ -1,7 +1,7 @@
 # Vocal Bot
 
 ## ToDo
-- Allow the program to take speech input using OpenAI speech-to-text API
+- Add a default system prompt to give Vocal Bot personality
 
 ## About This Project
 Vocal Bot is a chatbot application which utilises the OpenAI text generation and text-to-speech API to output chatbot responses through speaker audio.
