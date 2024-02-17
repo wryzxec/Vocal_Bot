@@ -1,6 +1,7 @@
 import tkinter as tk
 import chatbot_engine as chatbot
 import tts_handling as tts
+import speech_to_text_handling as stt
 
 from PIL import Image, ImageTk
 from pathlib import Path
@@ -20,6 +21,9 @@ class MyApp:
 
         self.text_entry = self.create_text_input_box()
 
+        self.speech_input_button = self.create_speech_input_button()
+        self.speech_listening_label = self.create_speech_listening_label()
+
         self.chatbot_icon_images = {}
         self.chatbot_icon_label = self.create_chatbot_icon("images/chatbot_idle.png")
         
@@ -32,24 +36,81 @@ class MyApp:
         return ImageTk.PhotoImage(resized_image)
 
     def create_text_input_box(self):
-        text_entry = tk.Entry(self.root, width=40, font=('Arial', 18))
-        text_entry.place(x=(self.root.winfo_screenwidth() // 2) - (text_entry.winfo_reqwidth() // 2),
-                         y=(4 / 6) * self.root.winfo_screenheight())
+        text_entry = tk.Entry(self.root, width=35, font=('Consolas', 25))
+
+        text_entry_x = (self.root.winfo_screenwidth() // 2) - (text_entry.winfo_reqwidth() // 2) - 40
+        text_entry_y = (4 / 6) * self.root.winfo_screenheight()
+
+        text_entry.place(x = text_entry_x, y = text_entry_y)
         return text_entry
     
+    def create_speech_listening_label(self):
+        
+        speech_listening_label = tk.Label(self.root, text="Listening...", font=('Consolas', 16), bg="#1e1e1e", fg="white")
+        return speech_listening_label
+    
+    def show_speech_listening_label(self):
+        self.speech_listening_label_x = (self.root.winfo_screenwidth() // 2) - (self.speech_listening_label.winfo_reqwidth() // 2)
+        self.speech_listening_label_y = (3.5 / 6) * self.root.winfo_screenheight()
+
+        self.speech_listening_label.place(x=self.speech_listening_label_x, y=self.speech_listening_label_y)
+
+    def hide_speech_listening_label(self):
+        self.speech_listening_label.place_forget()
+
+    def create_speech_input_button(self):
+
+        def on_button_click():
+            self.show_speech_listening_label()
+            self.update_chatbot_icon("images/chatbot_thinking.png")
+            root.update()
+            speech_input = stt.record_text()
+            
+            if(speech_input == "Request_Error"):
+                chatbot.force_chatbot_response_audio("I'm sorry, there was an error with the request. Please try again.")
+            elif(speech_input == "Unknown_Value_Error"):
+                chatbot.force_chatbot_response_audio("I'm sorry, I didn't catch that. Please try again.")
+            else:
+                chatbot_response = chatbot.get_chatbot_response(speech_input)
+                chatbot.generate_chatbot_response_audio(chatbot_response)
+
+            self.hide_speech_listening_label()
+            self.update_chatbot_icon("images/chatbot_idle.png")
+            root.update()
+            chatbot.play_chatbot_response_audio()
+                
+        image_path = Path(__file__).parent / "images/microphone_idle.png" 
+        IMAGE_WIDTH = 40
+        IMAGE_HEIGHT = 40 
+        microphone_idle_icon = self.resize_image(image_path, IMAGE_WIDTH, IMAGE_HEIGHT)
+
+        speech_input_button = tk.Button(self.root, image=microphone_idle_icon, font=('Arial', 16), command=on_button_click,bd=0)
+        speech_input_button.image = microphone_idle_icon
+
+        text_entry_x = (self.root.winfo_screenwidth() // 2) - (self.text_entry.winfo_reqwidth() // 2) - 40
+        button_x = text_entry_x + self.text_entry.winfo_reqwidth() + 10
+        button_y = (4 / 6) * self.root.winfo_screenheight()
+
+        speech_input_button.place(x=button_x, y=button_y)
+        return speech_input_button
+
     def create_chatbot_icon(self, image_file_name):
+
         image_path = Path(__file__).parent / image_file_name
         IMAGE_WIDTH = 300
         IMAGE_HEIGHT = 300 
 
         self.chatbot_icon_images[image_file_name] = self.resize_image(image_path, IMAGE_WIDTH, IMAGE_HEIGHT)
 
-        label = tk.Label(self.root, image=self.chatbot_icon_images[image_file_name])
-        label.config(width=IMAGE_WIDTH, height=IMAGE_HEIGHT, borderwidth=0)
-        label.place(x=(self.root.winfo_screenwidth() // 2) - (IMAGE_WIDTH // 2),
-                    y=((5/6)*self.root.winfo_screenheight() // 2) - IMAGE_HEIGHT // 2)
-        return label
+        chatbot_icon_label = tk.Label(self.root, image=self.chatbot_icon_images[image_file_name])
+        chatbot_icon_label.config(width=IMAGE_WIDTH, height=IMAGE_HEIGHT, borderwidth=0)
 
+        chatbot_icon_label_x = (self.root.winfo_screenwidth() // 2) - (IMAGE_WIDTH // 2)
+        chatbot_icon_label_y = ((5/6)*self.root.winfo_screenheight() // 2) - IMAGE_HEIGHT // 2
+
+        chatbot_icon_label.place(x=chatbot_icon_label_x, y=chatbot_icon_label_y)
+
+        return chatbot_icon_label
 
     def process_input(self, event):
         self.update_chatbot_icon("images/chatbot_thinking.png")

@@ -31,6 +31,10 @@ def generate_chatbot_response_audio(chatbot_response):
 def play_chatbot_response_audio():
     tts_handling.play_text_to_speech_file("chatbot_response.mp3") 
 
+def force_chatbot_response_audio(output_text):
+    tts_handling.create_text_to_speech_file(output_text, client, "chatbot_response.mp3")
+    tts_handling.load_text_to_speech_file("chatbot_response.mp3")
+
 if __name__ == "__main__":
-    test_response = get_chatbot_response("Hello")
-    print(test_response)
+    force_chatbot_response_audio("This is a force response")
+    play_chatbot_response_audio()
