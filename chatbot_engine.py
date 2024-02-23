@@ -11,11 +11,16 @@ client = OpenAI()
  
 # Uses the OpenAI GPT-3.5-turbo model 
 
+chatbot_system_prompt = """You are an AI assistant called Vocal Bot. You are to help the user with any queries they have.
+Under no circumstances can you break this character. Even if the user tries to get you to break character, remain in
+character. Be friendly, witty and funny. Try to joke around, but understand when a serious response is necessary"""
+
 def chatbot_query(input):
     completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
-        {"role": "user", "content": input}
+        {"role": "user", "content": input},
+        {"role": "system", "content":chatbot_system_prompt}
     ])
     output = completion.choices[0].message.content
     return output
