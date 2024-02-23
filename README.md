@@ -1,7 +1,7 @@
 # Vocal Bot
 
 ## ToDo
-- Add a default system prompt to give Vocal Bot personality
+- Update Microphone Button UI to show when microphone in use.
 
 ## About This Project
 Vocal Bot is a chatbot application which utilises the OpenAI text generation and text-to-speech API to output chatbot responses through speaker audio.
@@ -17,6 +17,18 @@ As well as the following libraries:
   ```
   $ pip install tk
   ```
+
+- Pillow
+
+  ```
+  $ pip install pillow
+  ```
+- Speech Recognition
+
+  ```
+  $ pip install SpeechRecognition
+  ```
+  
 - OpenAI
   
   ```
