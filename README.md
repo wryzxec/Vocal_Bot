@@ -2,6 +2,7 @@
 
 ## ToDo
 - Make UI More Accessible
+- Add Chat History
 
 ## About This Project
 Vocal Bot is a chatbot application which utilises the OpenAI text generation and text-to-speech API to output chatbot responses through speaker audio.
