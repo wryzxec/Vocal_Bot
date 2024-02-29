@@ -58,10 +58,21 @@ class MyApp:
     def hide_speech_listening_label(self):
         self.speech_listening_label.place_forget()
 
+    def set_speech_input_button(self, status):
+        if(status == "active"):
+            image_path = Path(__file__).parent / "images/microphone_in_use.png"
+        else:
+            image_path = Path(__file__).parent / "images/microphone_idle.png"
+
+        resized_image = self.resize_image(image_path, 40, 40)
+        self.speech_input_button.config(image=resized_image)
+        self.speech_input_button.image = resized_image
+
     def create_speech_input_button(self):
 
         def on_button_click():
             self.show_speech_listening_label()
+            self.set_speech_input_button("active")
             self.update_chatbot_icon("images/chatbot_thinking.png")
             root.update()
             speech_input = stt.record_text()
@@ -75,6 +86,7 @@ class MyApp:
                 chatbot.generate_chatbot_response_audio(chatbot_response)
 
             self.hide_speech_listening_label()
+            self.set_speech_input_button("idle")
             self.update_chatbot_icon("images/chatbot_idle.png")
             root.update()
             chatbot.play_chatbot_response_audio()
