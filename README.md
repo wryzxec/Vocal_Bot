@@ -1,7 +1,7 @@
 # Vocal Bot
 
 ## ToDo
-- Update Microphone Button UI to show when microphone in use.
+- Make UI More Accessible
 
 ## About This Project
 Vocal Bot is a chatbot application which utilises the OpenAI text generation and text-to-speech API to output chatbot responses through speaker audio.
