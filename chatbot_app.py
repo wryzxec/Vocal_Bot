@@ -19,10 +19,15 @@ class MyApp:
         self.root.title("Vocal Bot")
         self.root.configure(bg="#1e1e1e")
 
+        self.vocal_bot_title = self.create_vocal_bot_title_label()
+        self.vocal_bot_metadata = self.create_vocal_bot_metadata_label()
+
         self.text_entry = self.create_text_input_box()
 
         self.speech_input_button = self.create_speech_input_button()
-        self.speech_listening_label = self.create_speech_listening_label()
+        
+        self.speech_listening_label = self.create_speech_listening_label() 
+        self.accessibility_label = self.create_accessibility_label()
 
         self.chatbot_icon_images = {}
         self.chatbot_icon_label = self.create_chatbot_icon("images/chatbot_idle.png")
@@ -43,6 +48,35 @@ class MyApp:
 
         text_entry.place(x = text_entry_x, y = text_entry_y)
         return text_entry
+    
+    def create_vocal_bot_title_label(self):
+        vocal_bot_title_label = tk.Label(self.root, text="VOCAL BOT", font=('Montserrat', 40, "bold"), bg="#1e1e1e", fg="white")
+        vocal_bot_title_label_x = 10
+        vocal_bot_title_label_y = 10
+
+        vocal_bot_title_label.place(x=vocal_bot_title_label_x, y=vocal_bot_title_label_y)
+
+        return vocal_bot_title_label
+    
+    def create_vocal_bot_metadata_label(self):
+        vocal_bot_metadata_label = tk.Label(self.root, text="Version: 1.0\nAuthor: Lucas Bruckbauer\nGitHub: wryzxec", justify="left", font=('Consolas', 16), bg="#1e1e1e", fg="grey")
+        vocal_bot_metadata_label_x = 10
+        vocal_bot_metadata_label_y = self.vocal_bot_title.winfo_reqheight() + 10
+
+        vocal_bot_metadata_label.place(x=vocal_bot_metadata_label_x, y=vocal_bot_metadata_label_y)
+
+        return vocal_bot_metadata_label
+    
+    def create_accessibility_label(self):
+        accessibility_label = tk.Label(self.root, text="Type inside the Text Box or click on the Mic Icon and start speaking", 
+                                       font=('Consolas', 16, "bold"), bg="#1e1e1e", fg="grey")
+        accessibility_label_x = (self.root.winfo_screenwidth() // 2) - (accessibility_label.winfo_reqwidth() // 2)
+        accessibility_label_y = (4.5 / 6) * self.root.winfo_screenheight()
+
+        accessibility_label.place(x=accessibility_label_x, y=accessibility_label_y)
+
+        return accessibility_label
+
     
     def create_speech_listening_label(self):
         
