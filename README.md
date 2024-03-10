@@ -1,8 +1,8 @@
 # Vocal Bot
 
 ## ToDo
-- Make UI More Accessible
-- Add Chat History
+- Add Chat History (one possibility is to have vocal bot access chat history to have 'memory' of previous prompts
+- Fix voice input taking too long (either mic is stuck waiting for more input or it is a processing issue)
 
 ## About This Project
 Vocal Bot is a chatbot application which utilises the OpenAI text generation and text-to-speech API to output chatbot responses through speaker audio.
@@ -66,3 +66,8 @@ Currently, the program is using OpenAI's GPT-3.5-Turbo model. To use OpenAI's GP
   ```python
   model="gpt-4"
   ```
+
+
+## Progress
+![Screenshot of Interface 10/03/2024](images/progress_10_03_2024.png)
+(10/03/24)
