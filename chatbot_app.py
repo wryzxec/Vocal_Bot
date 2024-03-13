@@ -2,6 +2,7 @@ import tkinter as tk
 import chatbot_engine as chatbot
 import tts_handling as tts
 import speech_to_text_handling as stt
+import chat_history as ch
 
 from PIL import Image, ImageTk
 from pathlib import Path
@@ -165,6 +166,8 @@ class MyApp:
         input_text = self.text_entry.get()
         self.text_entry.delete(0, tk.END)
 
+        chat_history.insert_chat_log(input_text)
+
         chatbot_response = chatbot.get_chatbot_response(input_text)
         chatbot.generate_chatbot_response_audio(chatbot_response)
 
@@ -185,5 +188,6 @@ class MyApp:
 if __name__ == "__main__":
     root = tk.Tk()
     app = MyApp(root)
+    chat_history = ch.chat_history()
 
     root.mainloop()
